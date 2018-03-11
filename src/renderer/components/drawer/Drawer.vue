@@ -18,7 +18,7 @@ export default {
 .Drawer {
   background-color: $colorLightNavy;
   position: absolute;
-  width: 100%;
+  width: 50%;
   height: 100%;
   z-index: 1;
   -webkit-app-region: no-drag;

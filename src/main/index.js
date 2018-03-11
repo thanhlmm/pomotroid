@@ -22,7 +22,7 @@ function createWindow () {
     frame: false,
     resizable: false,
     useContentSize: true,
-    width: 360,
+    width: 720,
     height: 478
   })
 

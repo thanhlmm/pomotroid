@@ -4,7 +4,14 @@
     <transition name="slide-left" mode="out-in">
       <app-drawer v-if="drawerOpen"/>
     </transition>
-    <app-timer/>
+    <div class="container">
+      <div class="half">
+        <app-timer />
+      </div>
+      <div class="half">
+        <app-tasks />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -12,13 +19,15 @@
 import appDrawer from '@/components/drawer/Drawer'
 import appTimer from '@/components/timer/Timer'
 import appTitlebar from '@/components/Titlebar'
+import appTasks from '@/components/Tasks'
 
 export default {
   name: 'pomotroid',
   components: {
     appDrawer,
     appTimer,
-    appTitlebar
+    appTitlebar,
+    appTasks
   },
 
   computed: {
@@ -32,9 +41,17 @@ export default {
 
 <style lang="scss">
 #app {
-  animation: fade-in .5s ease forwards;
+  animation: fade-in 0.5s ease forwards;
   position: relative;
   overflow: hidden;
   height: 100vh;
+
+  .container {
+    display: flex;
+    
+    .half {
+      width: 50%;
+    }
+  }
 }
 </style>

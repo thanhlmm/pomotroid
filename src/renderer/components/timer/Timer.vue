@@ -40,6 +40,10 @@
 
     <!-- <button @click="resetTimer">Reset</button> -->
     <app-timer-controller/>
+    <sweet-modal title="What is your main focus?" ref="modal" blocking overlay-theme="dark" modal-theme="dark">
+      <input type="text" class="task-input" v-model="task" @keyup.enter="confirmStart" placeholder="Killing bug...">
+      <button class="confirm-btn" @click="confirmStart">Let's go</button>
+    </sweet-modal>
   </div>
 </template>
 
@@ -49,6 +53,7 @@ import appAudio from '@/components/Audio'
 import appTimerController from '@/components/timer/Timer-controller'
 import appTimerDial from '@/components/timer/Timer-dial'
 import appTimerFooter from '@/components/timer/Timer-footer'
+import { SweetModal } from 'sweet-modal-vue'
 import { EventBus } from '@/utils/event-bus'
 
 export default {
@@ -56,7 +61,8 @@ export default {
     appAudio,
     appTimerController,
     appTimerDial,
-    appTimerFooter
+    appTimerFooter,
+    SweetModal
   },
 
   data () {
@@ -64,7 +70,8 @@ export default {
       minutes: 1,
       timer: null,
       timerActive: false,
-      timerStarted: false
+      timerStarted: false,
+      task: ''
     }
   },
 
@@ -180,9 +187,18 @@ export default {
     },
 
     startTimer () {
-      this.timer.start()
-      this.timerActive = true
-      this.timerStarted = true
+      this.$refs.modal.open()
+    },
+
+    confirmStart () {
+      window.form = this
+      console.log(this.task)
+      if (!this.timerActive) {
+        this.timer.start()
+        this.timerActive = true
+        this.timerStarted = true
+        this.$refs.modal.close()
+      }
     }
   },
 
@@ -225,6 +241,42 @@ export default {
     & .Icon--start polygon {
       fill: $colorRed;
     }
+  }
+}
+
+.sweet-modal-overlay.theme-dark {
+  background: rgba(24, 32, 40, 0.6);
+}
+
+.sweet-content-content {
+  text-align: center;
+}
+
+.task-input {
+  font-size: 16px;
+  padding: 10px;
+  border-radius: 3px;
+  width: 100%;
+  border: none;
+
+  &:focus, &:active {
+    overflow: hidden;
+    outline: none;
+  }
+}
+
+.confirm-btn {
+  margin-top: 18px;
+  background-color: #FF4E4D;
+  border: none;
+  font-size: 16px;
+  padding: 10px 16px;
+  color: #F6F2EB;
+  border-radius: 3px;
+
+  &:focus, &:active {
+    overflow: hidden;
+    outline: none;
   }
 }
 
